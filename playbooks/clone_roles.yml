@@ -1,0 +1,20 @@
+---
+- name: 
+  hosts: all
+  become: true
+  vars:
+    git_repository: "https://github.com/markre94/App_of_apps.git"
+    git_branch: "main"
+
+  tasks:
+    - name: Create folder in not exists
+      file:
+        path: /etc/ansible/roles
+        state: directory
+        mode: '0755'
+
+    - name: "Git checkout"
+      git:
+        repo: "{{ git_repository }}"
+        dest: "/etc/ansible/roles"
+        version: "{{ git_branch }}"
